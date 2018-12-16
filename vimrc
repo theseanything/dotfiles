@@ -18,7 +18,6 @@ set termguicolors
 " let g:hybrid_use_Xresources = 1
 " let g:rehash256 = 1
 colorscheme base16-tomorrow-night 
-autocmd vimenter * NERDTree
 
 " settings
 
@@ -42,6 +41,10 @@ set ignorecase                  " Search case insensitive...
 set smartcase                   " ... but not when search pattern contains upper case characters
 set ttyfast
 set lazyredraw          	" Wait to redraw
+
+" Open NERDTree and add shortcut
+map <C-n> :NERDTreeToggle<CR>
+autocmd vimenter * NERDTree
 
 " Buffer prev/next
 nnoremap <C-x> :bnext<CR>
