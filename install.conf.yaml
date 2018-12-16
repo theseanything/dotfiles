@@ -6,5 +6,5 @@
 
 - link:
     ~/.dotfiles: ''
-    ~/.tmux.conf: tmux.conf
-
+    ~/.tmux.conf:
+    ~/.gitignore:
