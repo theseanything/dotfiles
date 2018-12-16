@@ -10,4 +10,4 @@
     ~/.config/alacritty/alacritty.yml: 
         path: 'config/alacritty/alacritty.yml'
         create: true
-
+    ~/.zshrc:
