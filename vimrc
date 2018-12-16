@@ -44,7 +44,6 @@ set lazyredraw          	" Wait to redraw
 
 " Open NERDTree and add shortcut
 map <C-n> :NERDTreeToggle<CR>
-autocmd vimenter * NERDTree
 
 " Buffer prev/next
 nnoremap <C-x> :bnext<CR>
