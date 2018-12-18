@@ -5,6 +5,7 @@
 - clean: ['~']
 
 - link:
+    ~/.tmux.config:
     ~/.gitignore:
     ~/.vimrc:
     ~/.config/alacritty/alacritty.yml: 
