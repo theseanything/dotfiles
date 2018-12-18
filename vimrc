@@ -8,10 +8,14 @@ endif
 call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'chriskempson/base16-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 call plug#end()
 
 " theme
 " set background=dark
+let g:airline_powerline_fonts = 1
 let base16colorspace=256
 set termguicolors
 " let g:solarized_termcolors=256
