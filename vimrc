@@ -11,10 +11,14 @@ Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
+Plug 'chrisbra/csv.vim'
+Plug 'posva/vim-vue'
 call plug#end()
 
 " theme
 " set background=dark
+let g:airline#extensions#ale#enabled = 1
+highlight ALEWarning ctermbg=DarkMagenta
 let g:airline_powerline_fonts = 1
 let base16colorspace=256
 set termguicolors
@@ -38,6 +42,12 @@ set autowrite                   " Automatically save before :next, :make etc.
 set autoread                    " Automatically reread changed files without asking me anything
 set laststatus=2
 set hidden
+
+set tabstop=4			" tabs are at proper location
+set expandtab			" don't use actual tab character
+set shiftwidth=2		" indenting is 4 spaces
+set autoindent    		" turns it on
+set smartindent  		" does the right thing (mostly) in programs
 
 set incsearch                   " Shows the match while typing
 set hlsearch                    " Highlight found searches
