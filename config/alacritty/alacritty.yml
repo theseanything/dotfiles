@@ -476,6 +476,7 @@ key_bindings:
   - { key: Down,     mods: Alt,     chars: "\x1b[1;5B"                   }
   - { key: Left,     mods: Alt,     chars: "\x1bb"                       }
   - { key: Right,    mods: Alt,     chars: "\x1bf"                       }
+  - { key: Space,    mods: Control, chars: "\x00"                        }
   - { key: Key0,     mods: Alt,     chars: "º"                           }
   - { key: Key1,     mods: Alt,     chars: "¡"                           }
   - { key: Key2,     mods: Alt,     chars: "€"                           }

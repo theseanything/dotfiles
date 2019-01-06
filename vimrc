@@ -6,7 +6,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'scrooloose/nerdtree'
 Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -56,8 +55,8 @@ set smartcase                   " ... but not when search pattern contains upper
 set ttyfast
 set lazyredraw          	" Wait to redraw
 
-" Open NERDTree and add shortcut
-map <C-n> :NERDTreeToggle<CR>
+" lkj redraws the screen and removes any search highlighting.
+nnoremap <silent> lkj :nohl<CR><C-l>
 
 " Buffer prev/next
 nnoremap <C-x> :bnext<CR>
@@ -83,3 +82,7 @@ map j gj
 
 " Just go out in insert mode
 imap jk <ESC>l
+
+" Omnicomplete as ctrl-space
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-x><C-o>
