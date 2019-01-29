@@ -8,6 +8,9 @@
     ~/.tmux.config:
     ~/.gitignore:
     ~/.vimrc:
+    ~/.vim/ftplugin:
+        path: 'vim/ftplugin'
+        create: true
     ~/.config/alacritty/alacritty.yml: 
         path: 'config/alacritty/alacritty.yml'
         create: true

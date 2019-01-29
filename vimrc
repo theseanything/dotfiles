@@ -17,9 +17,14 @@ call plug#end()
 " theme
 " set background=dark
 let g:airline#extensions#ale#enabled = 1
-highlight ALEWarning ctermbg=DarkMagenta
+
+highlight ALEWarning ctermbg=53 guibg=plum4
+highlight ALEError ctermbg=52 guibg=pink4 
+let g:ale_set_highlights = 1
+
 let g:airline_powerline_fonts = 1
 let base16colorspace=256
+set t_Co=256
 set termguicolors
 " let g:solarized_termcolors=256
 " let g:hybrid_use_Xresources = 1
@@ -86,3 +91,8 @@ imap jk <ESC>l
 " Omnicomplete as ctrl-space
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-x><C-o>
+
+" ALELinting
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
