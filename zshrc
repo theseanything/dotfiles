@@ -105,3 +105,8 @@ if [ -f '/Users/seanrankine/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sea
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc'; fi
+
+alias cda="cd ~/govuk/content-data-admin"
+alias cpm="cd ~/govuk/content-performance-manager"
+alias vm="cd ~/govuk/govuk-puppet/development-vm"
+eval "$(direnv hook zsh)"
