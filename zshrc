@@ -59,12 +59,14 @@ ZSH_THEME="spaceship"
 plugins=(
   bundler
   common-aliases
-  git
   gem
+  git
+  go
+  kubectl
   osx
+  python
   rails
   ruby
-  python
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,6 +109,21 @@ if [ -f '/Users/seanrankine/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sea
 if [ -f '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc'; fi
 
 alias cda="cd ~/govuk/content-data-admin"
-alias cpm="cd ~/govuk/content-performance-manager"
+alias cpm="cd ~/govuk/content-data-api"
 alias vm="cd ~/govuk/govuk-puppet/development-vm"
 eval "$(direnv hook zsh)"
+
+# Set up virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
+
+# GOPATH
+export GOPATH=$HOME/Developer/go
+
+# GOVUK-GUIX
+export PATH='/Users/seanrankine/govuk/govuk-guix/bin':$PATH
+
+# GPG sessions happen in the terminal
+export GPG_TTY=$(tty)

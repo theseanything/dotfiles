@@ -13,6 +13,9 @@ Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'janko-m/vim-test'
+Plug 'vim-scripts/matchit.zip'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " theme
@@ -72,8 +75,8 @@ noremap <Leader>y "*y
 noremap <Leader>p "*p
 
 " Buffer prev/next
-nnoremap <C-x> :bnext<CR>
-nnoremap <C-z> :bprev<CR>
+" nnoremap <C-x> :bnext<CR>
+" nnoremap <C-z> :bprev<CR>
 
 " Better split switching
 map <C-j> <C-W>j
@@ -113,3 +116,10 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_rust_rls_toolchain = 'stable'
 noremap <leader>d :ALEGoToDefinition<CR>
 noremap <leader>f :ALEFix<CR>
+
+" vim-test mappings
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
