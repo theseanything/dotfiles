@@ -10,6 +10,23 @@ export TERM=xterm-256color
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  ruby          # Ruby section
+  golang        # Go section
+  docker        # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -60,7 +77,6 @@ plugins=(
   bundler
   common-aliases
   gem
-  git
   go
   kubectl
   osx
@@ -110,8 +126,16 @@ if [ -f '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc' ]; then . '/Use
 
 alias cda="cd ~/govuk/content-data-admin"
 alias cpm="cd ~/govuk/content-data-api"
+alias pub="cd ~/govuk/content-publisher"
 alias vm="cd ~/govuk/govuk-puppet/development-vm"
 eval "$(direnv hook zsh)"
+
+# set up ripgrep
+export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+
+# Set up fzf
+export FZF_DEFAULT_COMMAND='rg --files'
+alias we='vim $(fzf)'
 
 # Set up virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
@@ -119,11 +143,19 @@ export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
+# GOVUK DOCKER
+export PATH=$PATH:'/Users/seanrankine/govuk/govuk-docker/exe'
+
 # GOPATH
 export GOPATH=$HOME/Developer/go
+export PATH=$PATH:$GOPATH/bin
 
 # GOVUK-GUIX
 export PATH='/Users/seanrankine/govuk/govuk-guix/bin':$PATH
 
 # GPG sessions happen in the terminal
 export GPG_TTY=$(tty)
+
+# Use GPG agent for ssh auth
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye >/dev/null

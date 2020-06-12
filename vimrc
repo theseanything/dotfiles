@@ -15,8 +15,20 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'janko-m/vim-test'
 Plug 'vim-scripts/matchit.zip'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'mattn/emmet-vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'mileszs/ack.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 call plug#end()
+
+" ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " theme
 " set background=dark
@@ -24,6 +36,7 @@ let g:airline#extensions#ale#enabled = 1
 
 highlight ALEWarning ctermbg=53 guibg=plum4
 highlight ALEError ctermbg=52 guibg=pink4
+
 let g:ale_set_highlights = 1
 let g:ale_sign_warning = 'W➤'
 let g:ale_sign_error = 'E➤'
@@ -39,6 +52,7 @@ colorscheme base16-tomorrow-night
 
 " settings
 
+set mouse=a                     " use mouse features i.e. scroll, select etc
 set number                      " Show line numbers
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 set showcmd                     " Show me what I'm typing
@@ -66,13 +80,17 @@ set smartcase                   " ... but not when search pattern contains upper
 set ttyfast
 set lazyredraw          	    " Wait to redraw
 
+" set leader keys
+let mapleader      = ' '
+let maplocalleader = ' '
+
 " lkj redraws the screen and removes any search highlighting.
 " disabled as introduces a delay with l
 nnoremap <silent> <leader>lkj :nohl<CR><C-l>
 
 " Copy and Paste into clipboard
-noremap <Leader>y "*y
-noremap <Leader>p "*p
+noremap <leader>y "*y
+noremap <leader>p "*p
 
 " Buffer prev/next
 " nnoremap <C-x> :bnext<CR>
@@ -87,8 +105,8 @@ map <C-l> <C-W>l
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" Center the screen
-nnoremap <space> zz
+" Center the screen - doesn't work with leader as space
+" nnoremap <space> zz
 
 " Move up and down on splitted lines (on small width screens)
 map <Up> gk
@@ -117,9 +135,51 @@ let g:ale_rust_rls_toolchain = 'stable'
 noremap <leader>d :ALEGoToDefinition<CR>
 noremap <leader>f :ALEFix<CR>
 
+" Find merge conflict markers
+map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
 " vim-test mappings
 nmap <silent> t<C-n> :TestNearest<CR>
 nmap <silent> t<C-f> :TestFile<CR>
 nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
+
+" find file
+nnoremap <silent> <Leader><Leader> :Files<CR>
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --auto-hybrid-regex --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--delimiter', ':', '--nth', '4..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec, 'right:50%'), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+nnoremap <Leader>s :Rg<CR>
+
+" markdown folding
+let g:vim_markdown_folding_disabled = 1
+
+" vim-go settings
+let g:go_fmt_command = "goimports"
+let g:go_fmt_fail_silently = 1
+let g:go_highlight_diagnostic_errors = 0
+let g:go_highlight_diagnostic_warnings = 0
+
+" emmet
+let g:user_emmet_leader_key='<C-Z>'
+
+" markdown-preview
+"let g:instant_markdown_slow = 1
+"let g:instant_markdown_autostart = 0
+"let g:instant_markdown_open_to_the_world = 1
+"let g:instant_markdown_allow_unsafe_content = 1
+"let g:instant_markdown_allow_external_content = 0
+"let g:instant_markdown_mathjax = 1
+"let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+"let g:instant_markdown_autoscroll = 0
+"let g:instant_markdown_port = 8888
+"let g:instant_markdown_python = 1

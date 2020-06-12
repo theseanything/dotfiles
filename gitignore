@@ -47,3 +47,11 @@ Session.vim
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+# Ignore Byebug command history file.
+.byebug_history
+
+## Ruby environment normalization:
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
