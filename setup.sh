@@ -20,28 +20,17 @@ echo "Git config"
 git config --global user.name "Sean Rankine"
 git config --global user.email sean.rankine@digital.cabinet-office.gov.uk
 
-echo "Installing other brew stuff..."
-brew install vim
-brew install node
-brew install zsh zsh-completions
-brew install go
-brew install python
-brew install rbenv
+echo "Brew bundle"
+brew bundle
 
 echo "Cleaning up brew"
 brew cleanup
-
-echo "Installing homebrew cask"
-brew install caskroom/cask/brew-cask
 
 # echo "Copying dotfiles from Github"
 # cd ~
 # git clone git@github.com:bradp/dotfiles.git .dotfiles
 # cd .dotfiles
 # sh symdotfiles
-
-echo "Install npm stuff..."
-# npm install -g grunt-cli
 
 # Install Zsh & Oh My Zsh
 echo "Installing Oh My ZSH..."
@@ -58,26 +47,6 @@ curl -L http://install.ohmyz.sh | sh
 echo "Setting ZSH as shell..."
 chsh -s /bin/zsh
 
-# Apps
-apps=(
-  firefox
-  vagrant
-  virtualbox
-  visual-studio-code
-  slack
-  docker
-  keybase
-)
-
-# Install apps to /Applications
-# Default is: /Users/$user/Applications
-echo "installing apps with Cask..."
-brew cask install --appdir="/Applications" ${apps[@]}
-
-brew cask alfred link
-
-brew cleanup
-
 echo "Installing powerline fonts"
 
 git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
@@ -85,6 +54,10 @@ git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
 rm -rf /tmp/fonts
 
 echo "Setting some Mac settings..."
+
+# Hot corner bottom left screen corner → display to sleep
+defaults write com.apple.dock wvous-bl-corner -int 10
+defaults write com.apple.dock wvous-bl-modifier -int 0
 
 #"Disabling system-wide resume"
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
@@ -101,8 +74,9 @@ defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 #"Disabling the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-#"Avoiding the creation of .DS_Store files on network volumes"
+#"Avoiding the creation of .DS_Store files on network or USB volumes"
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 #"Setting the Pro theme by default in terminal.app"
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro"

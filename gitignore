@@ -55,3 +55,6 @@ Session.vim
 /.bundle/
 /vendor/bundle
 /lib/bundler/man/
+
+# solargraph
+.solargraph.yml

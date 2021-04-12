@@ -13,23 +13,27 @@ Plug 'w0rp/ale'
 Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'janko-m/vim-test'
 Plug 'vim-scripts/matchit.zip'
 Plug 'mattn/emmet-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mileszs/ack.vim'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'machakann/vim-swap'
+Plug 'ervandew/supertab'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
-
+ 
 " theme
 " set background=dark
 let g:airline#extensions#ale#enabled = 1
@@ -135,6 +139,10 @@ let g:ale_rust_rls_toolchain = 'stable'
 noremap <leader>d :ALEGoToDefinition<CR>
 noremap <leader>f :ALEFix<CR>
 
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_autoimport = 1
+let g:ale_completion_max_suggestions = 10
+
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
@@ -145,20 +153,24 @@ nmap <silent> t<C-s> :TestSuite<CR>
 nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
-" find file
+" find and search file
 nnoremap <silent> <Leader><Leader> :Files<CR>
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.6, 'border': 'sharp' } }
+let g:fzf_preview_window = ['right:40%', 'ctrl-/']
 
+" search for chars in files
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --auto-hybrid-regex --smart-case %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--delimiter', ':', '--nth', '4..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  let spec = { 'options': ['--delimiter', ':', '--nth', '4..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec, 'right:50%'), a:fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 nnoremap <Leader>s :Rg<CR>
+nnoremap <Leader>* :Rg <C-R><C-W><CR><CR>
 
 " markdown folding
 let g:vim_markdown_folding_disabled = 1
@@ -171,6 +183,11 @@ let g:go_highlight_diagnostic_warnings = 0
 
 " emmet
 let g:user_emmet_leader_key='<C-Z>'
+
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
 
 " markdown-preview
 "let g:instant_markdown_slow = 1

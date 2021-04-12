@@ -19,6 +19,7 @@ SPACESHIP_PROMPT_ORDER=(
   golang        # Go section
   docker        # Docker section
   aws           # Amazon Web Services section
+  # gcloud        # Google Cloud Platorm section
   venv          # virtualenv section
   exec_time     # Execution time
   line_sep      # Line break
@@ -32,13 +33,13 @@ SPACESHIP_PROMPT_ORDER=(
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=14
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -74,10 +75,14 @@ SPACESHIP_PROMPT_ORDER=(
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  aws
+  brew
   bundler
   common-aliases
+  fzf
   gem
-  go
+  git
+  golang
   kubectl
   osx
   python
@@ -124,10 +129,6 @@ if [ -f '/Users/seanrankine/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sea
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/seanrankine/google-cloud-sdk/completion.zsh.inc'; fi
 
-alias cda="cd ~/govuk/content-data-admin"
-alias cpm="cd ~/govuk/content-data-api"
-alias pub="cd ~/govuk/content-publisher"
-alias vm="cd ~/govuk/govuk-puppet/development-vm"
 eval "$(direnv hook zsh)"
 
 # set up ripgrep
@@ -135,6 +136,8 @@ export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 
 # Set up fzf
 export FZF_DEFAULT_COMMAND='rg --files'
+export FZF_DEFAULT_OPTS='--height 40%'
+export FZF_COMPLETION_TRIGGER='~~'
 alias we='vim $(fzf)'
 
 # Set up virtualenvwrapper
@@ -143,15 +146,17 @@ export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenvwrapper_lazy)"
+
 # GOVUK DOCKER
 export PATH=$PATH:'/Users/seanrankine/govuk/govuk-docker/exe'
 
 # GOPATH
 export GOPATH=$HOME/Developer/go
 export PATH=$PATH:$GOPATH/bin
-
-# GOVUK-GUIX
-export PATH='/Users/seanrankine/govuk/govuk-guix/bin':$PATH
 
 # GPG sessions happen in the terminal
 export GPG_TTY=$(tty)
