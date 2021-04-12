@@ -157,10 +157,3 @@ export PATH=$PATH:'/Users/seanrankine/govuk/govuk-docker/exe'
 # GOPATH
 export GOPATH=$HOME/Developer/go
 export PATH=$PATH:$GOPATH/bin
-
-# GPG sessions happen in the terminal
-export GPG_TTY=$(tty)
-
-# Use GPG agent for ssh auth
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-connect-agent updatestartuptty /bye >/dev/null

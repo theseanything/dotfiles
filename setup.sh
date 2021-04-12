@@ -47,6 +47,12 @@ curl -L http://install.ohmyz.sh | sh
 echo "Setting ZSH as shell..."
 chsh -s /bin/zsh
 
+ZSH_CUSTOM=~/.oh-my-zsh/custom
+
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+
 echo "Installing powerline fonts"
 
 git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
@@ -93,4 +99,6 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 killall Finder
 
 echo "Done!"
+
+
 
