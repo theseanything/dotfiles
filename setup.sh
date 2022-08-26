@@ -59,7 +59,16 @@ git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
 /tmp/fonts/install.sh
 rm -rf /tmp/fonts
 
+echo "Nice git diffs"
+
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global interactive.diffFilter "diff-so-fancy --patch"
+
 echo "Setting some Mac settings..."
+
+# Spead up key repeats
+defaults write -g InitialKeyRepeat 15
+defaults write -g KeyRepeat -int 2
 
 # Hot corner bottom left screen corner → display to sleep
 defaults write com.apple.dock wvous-bl-corner -int 10
@@ -99,6 +108,3 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 killall Finder
 
 echo "Done!"
-
-
-

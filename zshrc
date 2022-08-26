@@ -79,12 +79,14 @@ plugins=(
   brew
   bundler
   common-aliases
+  dotenv
   fzf
   gem
   git
+  gitignore
   golang
   kubectl
-  osx
+  macos
   python
   rails
   ruby
@@ -143,13 +145,15 @@ alias we='vim $(fzf)'
 # Set up virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
+# export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(pyenv virtualenvwrapper_lazy)"
+# eval "$(pyenv virtualenvwrapper_lazy)"
 
 # GOVUK DOCKER
 export PATH=$PATH:'/Users/seanrankine/govuk/govuk-docker/exe'
@@ -157,3 +161,4 @@ export PATH=$PATH:'/Users/seanrankine/govuk/govuk-docker/exe'
 # GOPATH
 export GOPATH=$HOME/Developer/go
 export PATH=$PATH:$GOPATH/bin
+

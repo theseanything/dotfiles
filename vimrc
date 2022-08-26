@@ -23,10 +23,11 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'machakann/vim-swap'
 Plug 'ervandew/supertab'
 Plug 'rust-lang/rust.vim'
+Plug 'jvirtanen/vim-hcl'
+Plug 'rodjek/vim-puppet'
 call plug#end()
 
 " ack.vim
@@ -147,11 +148,11 @@ let g:ale_completion_max_suggestions = 10
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " vim-test mappings
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+nmap <silent> tn :TestNearest<CR>
+nmap <silent> tf :TestFile<CR>
+nmap <silent> ts :TestSuite<CR>
+nmap <silent> tl :TestLast<CR>
+nmap <silent> tg :TestVisit<CR>
 
 " find and search file
 nnoremap <silent> <Leader><Leader> :Files<CR>
@@ -171,6 +172,10 @@ command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 nnoremap <Leader>s :Rg<CR>
 nnoremap <Leader>* :Rg <C-R><C-W><CR><CR>
+
+" subsitute word under cursor
+
+nnoremap <Leader>a :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " markdown folding
 let g:vim_markdown_folding_disabled = 1

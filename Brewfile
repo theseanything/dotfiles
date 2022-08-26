@@ -8,6 +8,9 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
+tap 'homebrew/cask-fonts'
+
+cask 'font-fira-code'
 
 cask 'firefox'
 cask 'google-chrome'
@@ -32,6 +35,7 @@ brew 'pyenv'
 
 brew 'node'
 brew 'yarn'
+brew 'python'
 brew 'go'
 
 brew 'ipython'

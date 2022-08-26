@@ -26,11 +26,11 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
-    y: 2
+    x: 0
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
-  dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -52,6 +52,7 @@ window:
 
   # When true, alacritty starts maximized.
   startup_mode: 'Maximized'
+  opacity: 1.0
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -65,19 +66,19 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: 'Hack'
+    family: 'Fira Code'
     style: Regular
 
   bold:
-    family: 'Hack'
+    family: 'Fira Code'
     style: Bold
 
   italic:
-    family: 'Hack'
+    family: 'Fira Code'
     style: Italic
 
   bold_italic:
-    family: 'Hack'
+    family: 'Fira Code'
     style: Bold Italic
 
   # Point size
@@ -185,7 +186,6 @@ bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
 
 # Mouse bindings
 #
@@ -217,8 +217,9 @@ mouse:
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: true 
 
+hints:
   url:
-          # URL launcher
+    # URL launcher
     #
     # This program is executed when clicking on a text which is recognized as a URL.
     # The URL is always added to the command as the last parameter.
