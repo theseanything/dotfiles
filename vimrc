@@ -28,6 +28,9 @@ Plug 'ervandew/supertab'
 Plug 'rust-lang/rust.vim'
 Plug 'jvirtanen/vim-hcl'
 Plug 'rodjek/vim-puppet'
+Plug 'chr4/nginx.vim'
+Plug 'chrisbra/csv.vim'
+
 call plug#end()
 
 " ack.vim
@@ -143,6 +146,8 @@ noremap <leader>f :ALEFix<CR>
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_autoimport = 1
 let g:ale_completion_max_suggestions = 10
+
+au BufRead,BufNewFile */.github/workflows/*.y{,a}ml let b:ale_linters = {'yaml': ['actionlint'] }
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>

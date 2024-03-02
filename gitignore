@@ -58,3 +58,6 @@ Session.vim
 
 # solargraph
 .solargraph.yml
+
+# GitHub
+!.github/*

@@ -1,8 +1,5 @@
 # Tap sources
-tap "caskroom/versions"
-tap "cloudfoundry/tap"
 tap "github/gh"
-tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
@@ -22,11 +19,8 @@ cask 'signal'
 cask 'alacritty'
 cask 'docker'
 cask 'visual-studio-code'
-cask 'db-browser-for-sqlite'
 cask 'github'
-cask 'wireshark'
 cask 'zoom'
-cask 'vlc'
 cask 'postman'
 cask 'mullvadvpn'
 
@@ -37,9 +31,6 @@ brew 'node'
 brew 'yarn'
 brew 'python'
 brew 'go'
-
-brew 'ipython'
-brew 'jupyterlab'
 
 brew 'zsh'
 brew 'bash'
@@ -61,6 +52,8 @@ brew 'parallel'
 brew 'watch'
 brew 'pv'
 
+brew 'git'
+
 brew 'diff-so-fancy'
 brew 'bat'
 
@@ -72,11 +65,7 @@ brew 'tmux'
 brew 'screen'
 
 brew 'gh'
-brew 'heroku'
-brew "heroku/brew/heroku"
-brew "cloudfoundry/tap/cf-cli"
 
-brew 'arduino-cli'
 brew 'awscli'
 brew 'kubernetes-cli'
 
