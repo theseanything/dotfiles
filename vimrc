@@ -144,6 +144,7 @@ noremap <leader>d :ALEGoToDefinition<CR>
 noremap <leader>f :ALEFix<CR>
 
 set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_enabled = 1
 let g:ale_completion_autoimport = 1
 let g:ale_completion_max_suggestions = 10
 

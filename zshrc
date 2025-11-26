@@ -195,7 +195,7 @@ function aws-assume-role () {
     fi
 
     local rv creds_json
-    creds_json=$(aws sts assume-role --profile gds-users --role-arn arn:aws:iam::${AWS_ACCOUNT}:role/sean.rankine-admin --role-session-name terraform-jenkins --serial-number arn:aws:iam::622626885786:mfa/sean.rankine@digital.cabinet-office.gov.uk --token-code "$@" --output json)
+    creds_json=$(aws sts assume-role --profile gds-users --role-arn arn:aws:iam::${AWS_ACCOUNT}:role/sean.rankine-admin --role-session-name terraform --serial-number arn:aws:iam::622626885786:mfa/sean.rankine@digital.cabinet-office.gov.uk --token-code "$@" --output json)
     rv="$?"
     if [[ $rv -ne 0 || ! $creds_json ]]; then
         echo "$pkg: failed to get credentials for user '$iam_user' account '$aws_account': $creds_json" 1>&2
@@ -226,6 +226,10 @@ function aws-assume-role () {
     echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID; AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY; AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN; export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN"
 }
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
 . ~/.asdf/plugins/java/set-java-home.zsh
+
+# Added by Antigravity
+export PATH="/Users/sean.rankine/.antigravity/antigravity/bin:$PATH"
