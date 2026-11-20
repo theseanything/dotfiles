@@ -4,6 +4,10 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/sean.rankine/.oh-my-zsh"
 export TERM=xterm-256color
+typeset -U path PATH
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -97,8 +101,6 @@ ZSH_TMUX_AUTOSTART=true
 
 source $ZSH/oh-my-zsh.sh
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 # Setup rbenv
 eval "$(rbenv init -)"
 # User configuration
@@ -131,10 +133,10 @@ eval "$(rbenv init -)"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then . "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"; fi
+# if [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then . "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]; then . "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"; fi
+# if [ -f "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc" ]; then . "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"; fi
 
 eval "$(direnv hook zsh)"
 
@@ -148,20 +150,17 @@ export FZF_COMPLETION_TRIGGER='~~'
 alias we='vim $(fzf)'
 
 # Set up virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/Devel
 # export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
 
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
-eval "$(pyenv init --path)"
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+# eval "$(pyenv init --path)"
+# if command -v pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 # eval "$(pyenv virtualenvwrapper_lazy)"
-
-# GOVUK DOCKER
-export PATH=$PATH:'/Users/sean.rankine/govuk/govuk-docker/exe'
 
 # TILT
 alias tilt='/opt/homebrew/Cellar/tilt/0.30.13/bin/tilt'
@@ -171,7 +170,7 @@ export GOPATH=$HOME/Developer/go
 export PATH=$PATH:$GOPATH/bin
 
 # Krew
-export PATH="${PATH}:${HOME}/.krew/bin"
+# export PATH="${PATH}:${HOME}/.krew/bin"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -198,7 +197,7 @@ function aws-assume-role () {
     creds_json=$(aws sts assume-role --profile gds-users --role-arn arn:aws:iam::${AWS_ACCOUNT}:role/sean.rankine-admin --role-session-name terraform --serial-number arn:aws:iam::622626885786:mfa/sean.rankine@digital.cabinet-office.gov.uk --token-code "$@" --output json)
     rv="$?"
     if [[ $rv -ne 0 || ! $creds_json ]]; then
-        echo "$pkg: failed to get credentials for user '$iam_user' account '$aws_account': $creds_json" 1>&2
+        echo "$pkg: failed to get credentials for account '$aws_account': $creds_json" 1>&2
         return "$rv"
     fi
 
@@ -223,13 +222,6 @@ function aws-assume-role () {
 
     export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 
-    echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID; AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY; AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN; export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN"
+    echo "$pkg: temporary AWS credentials exported for account '$aws_account'"
 }
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
-
-source /opt/homebrew/opt/asdf/libexec/asdf.sh
-. ~/.asdf/plugins/java/set-java-home.zsh
-
-# Added by Antigravity
-export PATH="/Users/sean.rankine/.antigravity/antigravity/bin:$PATH"
