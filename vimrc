@@ -1,3 +1,5 @@
+set nocompatible
+
 " load plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -10,13 +12,11 @@ Plug 'danielwe/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
-Plug 'posva/vim-vue'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'janko-m/vim-test'
 Plug 'vim-scripts/matchit.zip'
-Plug 'mattn/emmet-vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mileszs/ack.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -27,11 +27,12 @@ Plug 'machakann/vim-swap'
 Plug 'ervandew/supertab'
 Plug 'rust-lang/rust.vim'
 Plug 'jvirtanen/vim-hcl'
-Plug 'rodjek/vim-puppet'
-Plug 'chr4/nginx.vim'
 Plug 'chrisbra/csv.vim'
 
 call plug#end()
+
+filetype plugin indent on
+syntax enable
 
 " ack.vim
 if executable('ag')
@@ -74,10 +75,26 @@ set autowrite                   " Automatically save before :next, :make etc.
 set autoread                    " Automatically reread changed files without asking me anything
 set laststatus=2
 set hidden
+set wildmenu
+set wildmode=longest:full,full
+set scrolloff=3
+set signcolumn=yes
+set updatetime=300
+set completeopt=menuone,noinsert,noselect
+
+if has('clipboard')
+  set clipboard=unnamed,unnamedplus
+endif
+
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.vim/undodir
+  call mkdir(expand(&undodir), 'p')
+endif
 
 set tabstop=4		        	" tabs are at proper location
 set expandtab			        " don't use actual tab character
-set shiftwidth=2	        	" indenting is 4 spaces
+set shiftwidth=2	        	" indenting is 2 spaces
 set autoindent    		        " turns it on
 set smartindent  	        	" does the right thing (mostly) in programs
 
@@ -97,30 +114,30 @@ let maplocalleader = ' '
 nnoremap <silent> <leader>lkj :nohl<CR><C-l>
 
 " Copy and Paste into clipboard
-noremap <leader>y "*y
-noremap <leader>p "*p
+nnoremap <leader>y "+y
+xnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
 
 " Buffer prev/next
 " nnoremap <C-x> :bnext<CR>
 " nnoremap <C-z> :bprev<CR>
 
 " Better split switching
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<CR>
 
 " Center the screen - doesn't work with leader as space
 " nnoremap <space> zz
 
-" Move up and down on splitted lines (on small width screens)
-map <Up> gk
-map <Down> gj
-map k gk
-map j gj
+" Move up and down on wrapped lines (unless a count is used)
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " Disable arrow keys to avoid bad habits
 nnoremap <Left> :echoe "Use h"<CR>
@@ -129,7 +146,7 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " Just go out in insert mode
-imap jk <ESC>l
+inoremap jk <ESC>
 
 " Omnicomplete as ctrl-space
 inoremap <C-Space> <C-x><C-o>
@@ -140,25 +157,28 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_rust_rls_toolchain = 'stable'
-noremap <leader>d :ALEGoToDefinition<CR>
-noremap <leader>f :ALEFix<CR>
+nnoremap <leader>d :ALEGoToDefinition<CR>
+nnoremap <leader>f :ALEFix<CR>
 
 set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_enabled = 1
 let g:ale_completion_autoimport = 1
 let g:ale_completion_max_suggestions = 10
 
-au BufRead,BufNewFile */.github/workflows/*.y{,a}ml let b:ale_linters = {'yaml': ['actionlint'] }
+augroup AleSettings
+  autocmd!
+  autocmd BufRead,BufNewFile */.github/workflows/*.y{,a}ml let b:ale_linters = {'yaml': ['actionlint'] }
+augroup END
 
 " Find merge conflict markers
-map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+nnoremap <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " vim-test mappings
-nmap <silent> tn :TestNearest<CR>
-nmap <silent> tf :TestFile<CR>
-nmap <silent> ts :TestSuite<CR>
-nmap <silent> tl :TestLast<CR>
-nmap <silent> tg :TestVisit<CR>
+nnoremap <silent> tn :TestNearest<CR>
+nnoremap <silent> tf :TestFile<CR>
+nnoremap <silent> ts :TestSuite<CR>
+nnoremap <silent> tl :TestLast<CR>
+nnoremap <silent> tg :TestVisit<CR>
 
 " find and search file
 nnoremap <silent> <Leader><Leader> :Files<CR>
